@@ -6,7 +6,7 @@ on:
     inputs:
       device:
         description: 'select device to build'
-        default: 'r2s'
+        default: 'x86'
         required: false
       branch:
         description: 'seleclt openwrt branch'
@@ -22,7 +22,7 @@ jobs:
       DEVICE: ${{ github.event.client_payload.device || github.event.inputs.device }}
       BRANCH: ${{ github.event.client_payload.branch || github.event.inputs.branch }}
       TG: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-    if: github.repository_owner=='klever1988'
+    if: github.repository_owner=='troyliu0105'
 
     steps:
 
@@ -194,6 +194,7 @@ jobs:
 
   generate_slim_firmware:
     needs: build_packages
+    if: always()
     name: Generate ${{ github.event.client_payload.device || github.event.inputs.device }} slim firmware
     runs-on: ubuntu-18.04
     env:
